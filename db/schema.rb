@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_05_001753) do
+ActiveRecord::Schema.define(version: 2023_08_05_003026) do
 
   create_table "ekyc_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "uuid", limit: 64, null: false
@@ -28,4 +28,16 @@ ActiveRecord::Schema.define(version: 2023_08_05_001753) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "verified_claims", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "ekyc_user_id", null: false
+    t.string "name"
+    t.string "given_name"
+    t.string "family_name"
+    t.string "birthdate"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ekyc_user_id"], name: "index_verified_claims_on_ekyc_user_id"
+  end
+
+  add_foreign_key "verified_claims", "ekyc_users"
 end
