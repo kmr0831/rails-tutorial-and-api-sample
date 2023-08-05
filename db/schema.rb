@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_05_003026) do
+ActiveRecord::Schema.define(version: 2023_08_05_004041) do
+
+  create_table "claim_addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "verified_claim_id", null: false
+    t.string "street_address"
+    t.string "locality"
+    t.string "region"
+    t.string "posttal_code"
+    t.string "country"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["verified_claim_id"], name: "index_claim_addresses_on_verified_claim_id"
+  end
 
   create_table "ekyc_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "uuid", limit: 64, null: false
@@ -39,5 +51,6 @@ ActiveRecord::Schema.define(version: 2023_08_05_003026) do
     t.index ["ekyc_user_id"], name: "index_verified_claims_on_ekyc_user_id"
   end
 
+  add_foreign_key "claim_addresses", "verified_claims"
   add_foreign_key "verified_claims", "ekyc_users"
 end

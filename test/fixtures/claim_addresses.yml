@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  verified_claim: one
+  street_address: MyString
+  locality: MyString
+  region: MyString
+  posttal_code: MyString
+  country: MyString
+
+two:
+  verified_claim: two
+  street_address: MyString
+  locality: MyString
+  region: MyString
+  posttal_code: MyString
+  country: MyString
