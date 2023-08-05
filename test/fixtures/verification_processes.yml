@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  verified_claim: one
+  trust_framework: MyString
+  time: 2023-08-05 00:59:22
+
+two:
+  verified_claim: two
+  trust_framework: MyString
+  time: 2023-08-05 00:59:22
