@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_05_010320) do
+ActiveRecord::Schema.define(version: 2023_08_05_044957) do
 
   create_table "claim_addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "verified_claim_id", null: false
     t.string "street_address"
     t.string "locality"
     t.string "region"
-    t.string "posttal_code"
+    t.string "postal_code"
     t.string "country"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
