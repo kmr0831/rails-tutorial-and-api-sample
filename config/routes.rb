@@ -8,4 +8,10 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   resources :users
+
+  namespace :private do
+    resources :users do
+      put '/verified_claims', to: 'ekyc_users#update'
+    end
+  end
 end
