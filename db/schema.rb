@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_05_005922) do
+ActiveRecord::Schema.define(version: 2023_08_05_010320) do
 
   create_table "claim_addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "verified_claim_id", null: false
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(version: 2023_08_05_005922) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "verification_evidences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "verification_process_id", null: false
+    t.datetime "time"
+    t.string "evidence_type"
+    t.string "check_method"
+    t.string "document_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["verification_process_id"], name: "index_verification_evidences_on_verification_process_id"
+  end
+
   create_table "verification_processes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "verified_claim_id", null: false
     t.string "trust_framework"
@@ -61,6 +72,7 @@ ActiveRecord::Schema.define(version: 2023_08_05_005922) do
   end
 
   add_foreign_key "claim_addresses", "verified_claims"
+  add_foreign_key "verification_evidences", "verification_processes"
   add_foreign_key "verification_processes", "verified_claims"
   add_foreign_key "verified_claims", "ekyc_users"
 end
