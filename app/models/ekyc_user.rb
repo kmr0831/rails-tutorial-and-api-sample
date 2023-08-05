@@ -1,0 +1,2 @@
+class EkycUser < ApplicationRecord
+end
