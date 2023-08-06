@@ -14,6 +14,8 @@ gem 'jbuilder',   '2.9.1'
 gem 'bootsnap',   '1.10.3', require: false
 gem 'mysql2',     '>=0.4.4'
 
+gem 'active_model_serializers', '~> 0.10.0'
+
 group :development, :test do
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
 end
