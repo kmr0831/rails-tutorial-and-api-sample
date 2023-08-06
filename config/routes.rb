@@ -11,7 +11,8 @@ Rails.application.routes.draw do
 
   namespace :private do
     resources :users do
-      put '/verified_claims', to: 'ekyc_users#update'
+      # put '/verified_claims', to: 'ekyc_users#update'
+      put '/verified_claims', to: 'verified_claims#update'
     end
   end
 end

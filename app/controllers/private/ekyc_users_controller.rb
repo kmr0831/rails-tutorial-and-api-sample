@@ -1,11 +1,14 @@
 class Private::EkycUsersController < ApplicationController
+  require_relative '../serializers/verified_claim_serializer.rb'
   def update
     @ekyc_user = EkycUser.find_by(uuid: params[:user_id])
     debugger
     if @ekyc_user.verified_claim
-      @ekyc_user.verified_claim.update!(put_verified_claim_params)
+      ekyc_user = @ekyc_user.verified_claim.update!(put_verified_claim_params)
+      render json: @ekyc_user.verified_claim, serializer: VerifiedClaimSerializer
     else
       @claim = VerifiedClaim.create!(put_verified_claim_params)
+      render json: @claim, serializer: VerifiedClaimSerializer
     end
   end
 
