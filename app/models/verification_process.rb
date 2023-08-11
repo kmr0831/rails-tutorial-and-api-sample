@@ -3,5 +3,7 @@ class VerificationProcess < ApplicationRecord
   has_many :verification_evidences, dependent: :destroy
   accepts_nested_attributes_for :verification_evidences, allow_destroy: true
 
-  validates :trust_framework, presence: true
+  TRUST_FRAMEWORK = ['ssa']
+
+  validates :trust_framework, presence: true, inclusion: { in: TRUST_FRAMEWORK }
 end

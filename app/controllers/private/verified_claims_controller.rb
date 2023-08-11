@@ -10,6 +10,7 @@ class Private::VerifiedClaimsController < ApplicationController
 
     verified_claim = VerifiedClaim.find_or_initialize_by(ekyc_user_id: @ekyc_user.id)
     verified_claim.assign_attributes(put_verified_claim_params)
+    debugger
     verified_claim.save!
     render json: verified_claim, serializer: VerifiedClaimSerializer
   end
