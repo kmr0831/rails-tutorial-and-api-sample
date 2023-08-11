@@ -12,4 +12,6 @@ class VerifiedClaimSerializer < ActiveModel::Serializer
     }
     address_attributes
   end
+
+  has_one :verification_process
 end
