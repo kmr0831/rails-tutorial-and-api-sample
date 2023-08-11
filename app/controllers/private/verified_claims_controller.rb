@@ -2,13 +2,22 @@ class Private::VerifiedClaimsController < ApplicationController
 
   before_action :set_user
 
+  def show
+  end
+
   def update
     return head :not_found if @ekyc_user.nil?
-    
+
     verified_claim = VerifiedClaim.find_or_initialize_by(ekyc_user_id: @ekyc_user.id)
     verified_claim.assign_attributes(put_verified_claim_params)
     verified_claim.save!
     render json: verified_claim, serializer: VerifiedClaimSerializer
+  end
+
+  def destroy
+    verified_claim = VerifiedClaim.find_by(ekyc_user_id: @ekyc_user.id)
+    verified_claim.destroy!
+    head 204
   end
 
   private
