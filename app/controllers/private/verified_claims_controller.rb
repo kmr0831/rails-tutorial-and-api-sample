@@ -4,12 +4,9 @@ class Private::VerifiedClaimsController < ApplicationController
 
   def update
     return head :not_found if @ekyc_user.nil?
-    if VerifiedClaim.exists?(ekyc_user_id: @ekyc_user.id)
-      verified_claim = VerifiedClaim.find_by(ekyc_user_id: @ekyc_user.id)
-      verified_claim.assign_attributes(put_verified_claim_params)
-    else
-      verified_claim = VerifiedClaim.new
-    end
+    
+    verified_claim = VerifiedClaim.find_or_initialize_by(ekyc_user_id: @ekyc_user.id)
+    verified_claim.assign_attributes(put_verified_claim_params)
     verified_claim.save!
     render json: verified_claim, serializer: VerifiedClaimSerializer
   end
