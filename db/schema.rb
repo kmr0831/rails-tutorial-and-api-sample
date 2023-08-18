@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_05_044957) do
+ActiveRecord::Schema.define(version: 2023_08_15_020859) do
 
   create_table "claim_addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "verified_claim_id", null: false
@@ -31,12 +31,29 @@ ActiveRecord::Schema.define(version: 2023_08_05_044957) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "microposts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "picture"
+    t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_microposts_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
+    t.string "remember_digest"
+    t.boolean "admin", default: false
+    t.string "activation_digest"
+    t.boolean "activated", default: false
+    t.datetime "activated_at"
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -72,6 +89,7 @@ ActiveRecord::Schema.define(version: 2023_08_05_044957) do
   end
 
   add_foreign_key "claim_addresses", "verified_claims"
+  add_foreign_key "microposts", "users"
   add_foreign_key "verification_evidences", "verification_processes"
   add_foreign_key "verification_processes", "verified_claims"
   add_foreign_key "verified_claims", "ekyc_users"
