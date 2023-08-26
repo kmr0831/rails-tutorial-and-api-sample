@@ -20,8 +20,14 @@ class Private::VerifiedClaimsController < ApplicationController
 
   def destroy
     debugger
+    # ActiveRecord::Base.transaction do
+    #   verified_claim = VerifiedClaim.find_by!(ekyc_user_id: @ekyc_user.id)
+    #   verified_claim.claim_address.destroy!
+    #   verified_claim.verification_process.destroy!
+    #   verified_claim.destroy!
+    # end
+
     verified_claim = VerifiedClaim.find_by!(ekyc_user_id: @ekyc_user.id)
-    
     verified_claim.destroy!
     head 204
 
