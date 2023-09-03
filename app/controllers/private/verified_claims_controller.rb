@@ -10,7 +10,7 @@ class Private::VerifiedClaimsController < ApplicationController
     # return head :not_found if @ekyc_user.nil?
 
     verified_claim = VerifiedClaim.find_or_initialize_by(ekyc_user_id: @ekyc_user.id)
-    debugger
+    # debugger
     verified_claim.update!(put_verified_claim_params)
     # verified_claim.assign_attributes(put_verified_claim_params)
     # verified_claim.save!
@@ -19,7 +19,6 @@ class Private::VerifiedClaimsController < ApplicationController
   end
 
   def destroy
-    debugger
     # ActiveRecord::Base.transaction do
     #   verified_claim = VerifiedClaim.find_by!(ekyc_user_id: @ekyc_user.id)
     #   verified_claim.claim_address.destroy!
@@ -47,6 +46,37 @@ class Private::VerifiedClaimsController < ApplicationController
   end
 
   def put_verified_claim_params
+
+    
+
+    # context '更新時' do
+    #   let(:user) { create(:user) }
+    #   let(:user_id) { 123 }
+    #   let(:params) { {name: 'aiueo'} }
+    #   let(:update_path) { put update_path(user_id), params: params }
+
+    #   before do
+    #     create(:post, user: user)
+    #   end
+
+    #   subject { update_path }
+
+    #   context '正常系' do
+    #     context 'AAA' do
+    #     end
+  
+    #     context 'BBB' do
+
+    #       describe 'Models' do
+    #         subject { -> { update_path } }
+
+    #         it { is_expected.not_to change(Post, count) }
+    #       end
+
+    #     end
+    #   end
+    # end
+
     # params[:claim_address_attributes] = params.delete(:address)
     # params[:verification_process_attributes] = params.delete(:process)
     # params[:verification_process_attributes][:verification_evidences_attributes] = params[:verification_process_attributes].delete(:evidences).to_a
@@ -62,6 +92,12 @@ class Private::VerifiedClaimsController < ApplicationController
       address: [:street_address, :locality, :region, :postal_code, :country],
       process: [:trust_framework, :time, { evidences: [:time, :evidence_type, :check_method, :document_type] }]
     )
+
+    # name, given_name, family_name, birthdate はリクエストにキーがない場合dbに保存されている値がレスポンスに入ってくる。
+    # uppdate 時にverified_claim のレコードは先除されないから
+    origin_verified_claims_params.tap do |params|
+      params[:name] = nil unless params.has_key?(:name)
+    end 
     
     verified_claims_params = origin_verified_claims_params.slice(:name, :given_name, :family_name, :birthdate)
     verified_claims_params[:claim_address_attributes] = origin_verified_claims_params.delete(:address)

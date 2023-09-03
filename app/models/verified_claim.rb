@@ -15,4 +15,5 @@ class VerifiedClaim < ApplicationRecord
   # dependent: :destroyしていれば、allow_destroy: true がなくても親とともに削除してくれる
   # update_only: true なしだといったんレコードが削除されてから INSERT される
   # update_only: true ない場合　validation にひっかったりした場合 rollback されて削除などは行われない
+  # dependent_destroy がないと外部キーがないので削除されない
 end

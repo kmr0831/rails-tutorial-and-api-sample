@@ -20,6 +20,7 @@ group :development, :test do
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'bullet'
 end
 
 group :development do
@@ -27,7 +28,6 @@ group :development do
   gem 'listen',                '3.1.5'
   gem 'spring',                '2.1.0'
   gem 'spring-watcher-listen', '2.0.1'
-  gem 'bullet'
 end
 
 group :test do
